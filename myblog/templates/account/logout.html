@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<title>Log out Successfully!</title>
+<div class="bg-light py-5">
+  <div class="container">
+    {% if request.session.theme == 'dark' %}
+      <div class="bg-black p-4 rounded shadow-sm">
+    {% else %}
+      <div class="bg-white p-4 rounded shadow-sm">
+    {% endif %}
+    <h1>Successfully log out!</h1>
+  </div>
+</div>
+{% endblock content %}
+
+

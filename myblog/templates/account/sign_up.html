@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign-up{% endblock %}
+
+{% block content %}
+<title>Sign Up</title>
+<div class="bg-light py-5">
+  <div class="container d-flex justify-content-center">
+    {% if request.session.theme == 'dark' %}
+        <div class="bg-black p-5 rounded shadow" style="max-width: 500px; width: 100%;">
+    {% else %}
+        <div class="bg-white p-5 rounded shadow" style="max-width: 500px; width: 100%;">
+    {% endif %}
+      <h2 class="mb-4 text-center">Sign Up</h2>
+      <form method="POST">
+        {% csrf_token %}
+        {{ user_form|crispy }}
+        <a href="{% url 'sign_up_done' %}"><input type="submit" value="Continue" class="btn btn-primary w-100"></a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
