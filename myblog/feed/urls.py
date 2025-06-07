@@ -19,7 +19,7 @@ urlpatterns = [
     django.urls.path("dislike/<int:post_id>",
                      feed.views.dislike,
                      name="dislike"),
-    django.urls.path("comment/edit/<int:comment_id>",
+    django.urls.path("comment/edit/<int:post_id>/<int:comment_id>",
                      feed.views.edit_comment,
                      name="edit_comment"),
     django.urls.path("comment/delete/<int:comment_id>",

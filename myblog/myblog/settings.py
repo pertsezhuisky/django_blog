@@ -30,7 +30,6 @@ SECRET_KEY = os.getenv("SECRET_KEY", "not_secret")
 DEBUG_ENV = os.getenv("DJANGO_DEBUG", "False").lower()
 DEBUG = DEBUG_ENV in ("true", "yes", "t", "1", "y")
 
-
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -164,6 +163,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = False
+
+DATE_INPUT_FORMATS = ["%d/%m/%Y", "%d.%m.%Y"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

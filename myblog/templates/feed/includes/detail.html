@@ -47,11 +47,14 @@
             {% for comment in comments %}
               <div class="border-top pt-3 mt-3">
                 <h5>{{ comment.name }}</h5>
+                <img src="{{ comment.user.avatar.url }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover; margin-bottom: 0;">
                 <small class="text-muted"><a href="{% url 'user_profile' comment.user.id %}">{{ comment.user.username }}</a> • {{ comment.created_on }}</small>
                 <p class="mt-2">{{ comment.content }}</p>
-
+                {% if comment.image %}
+                  <img src="{{ comment.image.url }}" alt="image" class="img-fluid">
+                {% endif %}
                 {% if request.user.is_authenticated and comment.user == request.user %}
-                  <a href="{% url 'edit_comment' comment.id %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+                  <a href="{% url 'edit_comment' post.id comment.id %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
                   <form action="{% url 'delete_comment' comment.id %}" method="POST" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>

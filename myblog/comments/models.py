@@ -43,6 +43,13 @@ class Comments(django.db.models.Model):
         verbose_name="Created On",
         auto_now_add=True,
     )
+    image = django.db.models.ImageField(
+        name="image",
+        upload_to="users_comments/",
+        verbose_name="Comment image",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         ordering = ["created_on"]

@@ -23,8 +23,8 @@ def activate(request, uidb64, token):
         user.save()
         from django.contrib.auth import login
         login(request, user)
-        messages.success(request, "Thank you for your email confirmation. Now you can log in to your account.")
-        return redirect("items_list")
+        messages.success(request, "Thank you for your email confirmation!")
+        return redirect("edit_profile", user.id)
     else:
         return HttpResponse("Activation link is invalid!")
 
