@@ -28,4 +28,7 @@ urlpatterns = [
     django.urls.path("switch-theme/",
                      feed.views.switch_theme,
                      name="switch_theme"),
+    django.urls.path("about/",
+                     feed.views.about,
+                     name="about"),
 ]

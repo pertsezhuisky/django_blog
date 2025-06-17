@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -13,9 +14,15 @@ import feed.models
 
 def items_list(request):
     template = "feed/index.html"
-    posts = feed.models.Feed.objects.all()[:10][::-1]
+    posts = feed.models.Feed.objects.all().order_by("id")[::-1]
+
+    paginator = Paginator(posts, 5)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        "posts": posts,
+        "page_obj": page_obj,
     }
     return render(request, template, context)
 
@@ -76,7 +83,7 @@ def edit_post(request, post_id):
                 post = form.save(commit=False)
                 post.date_edited = datetime.datetime.now()
                 post.save()
-                return redirect("items_list")
+                return redirect("item_detail", post_id)
         else:
             form = feed.forms.CreatePostFrom(instance=post)
     else:
@@ -85,7 +92,7 @@ def edit_post(request, post_id):
         "post": post,
         "form": form,
     }
-    
+
     return render(request, template, context)
 
 
@@ -101,6 +108,7 @@ def delete_post(request, post_id):
     return redirect("items_list")
 
 
+# TODO: add likes and dislikes to detail page. Provide like, dislike system for comments
 @login_required
 def like(request, post_id):
     if request.method == "POST":
@@ -110,6 +118,7 @@ def like(request, post_id):
             post.likes.remove(user)
         else:
             post.likes.add(user)
+            post.dislikes.remove(user)
 
     return redirect(request.META.get("HTTP_REFERER", "feed"))
 
@@ -123,6 +132,7 @@ def dislike(request, post_id):
             post.dislikes.remove(user)
         else:
             post.dislikes.add(user)
+            post.likes.remove(user)
 
     return redirect(request.META.get("HTTP_REFERER", "feed"))
 
@@ -167,5 +177,10 @@ def switch_theme(request):
         request.session["theme"] = "dark"
     else:
         request.session["theme"] = "light"
-        
     return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+# TODO: add info about author
+def about(request):
+    template = "feed/about.html"
+    return render(request, template)

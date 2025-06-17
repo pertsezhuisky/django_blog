@@ -34,3 +34,7 @@ class Feed(core.models.AbstractPostModel):
 
     def __str__(self) -> str:
         return str(self.name)
+
+    @property
+    def get_like_score(self):
+        return self.likes.count() - self.dislikes.count()
