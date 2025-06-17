@@ -2,64 +2,73 @@
 
 {% block content %}
 <title>Feed</title>
-<div class="bg-light py-5">
-  <div class="container">
-    {% if request.session.theme == 'dark' %}
-      <div class="bg-black p-4 rounded shadow-sm">
-    {% else %}
-      <div class="bg-white p-4 rounded shadow-sm">
-    {% endif %}
-      <form action="{% url 'create_post' %}" method="POST" class="mb-4">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success">Add New Post</button>
-      </form>
- 
-      {% if posts %}
-        {% for post in posts %}
-        <div class="container">
-          <div class="mb-4 pb-3 border-bottom">
-            <div class="row">
-              <div class="col-3">
-                <img src="{{ post.user.avatar.url }}" class="rounded-circle" style="width: 64px; height: 64px; object-fit: cover; margin-bottom: 0;">
-                <p class="text-muted"><a href="{% url 'user_profile' post.user.id %}">{{ post.user.get_username }}</a> • {{ post.date_published }}</p>
-              </div>
-              <div class="col-9">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.image.name }}" class="img-fluid my-2">
+<body>
+  <div class="bg-light py-5">
+    <div class="container">
+      {% if request.session.theme == 'dark' %}
+        <div class="bg-black p-4 rounded shadow-sm">
+      {% else %}
+        <div class="bg-white p-4 rounded shadow-sm">
+      {% endif %}
+        <form action="{% url 'create_post' %}" method="POST" class="mb-4">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Add New Post</button>
+        </form>
+  
+    {% if page_obj.object_list %}
+      {% for post in page_obj.object_list %}
+      <div class="container">
+        <div class="mb-4 pb-3 border-bottom">
+          <div class="row">
+            <div class="col-3">
+              <img src="{{ post.user.avatar.url }}" class="rounded-circle" style="width: 92px; height: 92px; object-fit: cover; display:block; margin: auto;">
+              <p class="text-muted">
+                <a href="{% url 'user_profile' post.user.id %}"><p style="display:block; text-align: center;">{{ post.user.get_username }}</p></a>
+                <p style="display:block; text-align: center;">{{ post.date_published }}</p>
+              </p>
+            </div>
+            <div class="col-9">
+              {% if post.image %}
+              <img src="{{ post.image.url }}" alt="{{ post.image.name }}" class="img-fluid my-2">
+              {% endif %}
+              <h3><a href="{{ post.id }}/">{{ post.name }}</a></h3>
+              <p>{{ post.content|striptags|truncatewords:20 }}</p>
+              <div class="score">
+                {% if post.get_like_score >= 1 %}
+                  <p style="color:green;">
+                      ⭐+{{post.get_like_score}}
+                  </p>
+                {% elif post.get_like_score == 0 %}
+                  <p>⭐{{post.get_like_score}}</p>
+                {% else %}
+                  <p style="color:red;">
+                      ⭐{{post.get_like_score}}
+                  </p>
                 {% endif %}
-                <h3><a href="{{ post.id }}/">{{ post.name }}</a></h3>
-                <p>{{ post.content|truncatewords:20 }}</p>
-
-                <p>Likes: {{ post.likes.count }}</p>
-                <p>Dislikes: {{ post.dislikes.count }}</p>
-                <form action="{% url 'like' post.id %}" method="POST" class="d-inline">
-                  {% csrf_token %}
-                    {% if user in post.likes.all %}
-                    <button type="submit" class="btn btn-outline-success btn-sm">👍</button>
-                    {% else %}
-                    <button type="submit" class="btn btn-outline-secondary btn-sm">👍</button>
-                    {% endif %}
-                  </button>
-                </form>
-                <form action="{% url 'dislike' post.id %}" method="POST" class="d-inline">
-                  {% csrf_token %}
-                    {% if user in post.dislikes.all %}
-                    <button type="submit" class="btn btn-outline-danger btn-sm">👎</button>
-                    {% else %}
-                    <button type="submit" class="btn btn-outline-secondary btn-sm">👎</button>
-                    {% endif %}
-                  </button>
-                </form>
               </div>
             </div>
+          </div>
         </div>
-        </div>
-        {% endfor %}
-      {% else %}
-        <p>No posts found</p>
-      {% endif %}
+      </div>
+      {% endfor %}
 
+      <div class="pagination" style="text-align: center; margin-bottom: 20px;">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+        </div>
+        {% else %}
+          <p>No posts found</p>
+        {% endif %}
+
+      </div>
     </div>
   </div>
-</div>
+</body>
 {% endblock content %}
