@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 import users.models
 
 
-class CreateUserFrom(django.forms.ModelForm):
+class UserFrom(django.forms.ModelForm):
     class Meta:
         model = users.models.User
         fields = (
@@ -22,5 +22,5 @@ class CreateUserFrom(django.forms.ModelForm):
         return image
 
 
-class EditUserForm(CreateUserFrom):
+class EditUserForm(UserFrom):
     pass
