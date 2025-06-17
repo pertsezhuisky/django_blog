@@ -2,9 +2,8 @@
     <nav class="navbar navbar-expand-lg bg-primary px-4" data-bs-theme="light">
       <div class="d-flex w-100 align-items-center">
         <div class="content_bar d-flex gap-3">
-          <a class="navbar-brand text-black" href="{% url 'items_list' %}">Главная</a>
-          <a class="navbar-brand text-black" href="{% url 'profile' %}">Аккаунт</a>
-          <a class="navbar-brand text-black" href="about/">О сайте</a>
+          <a class="navbar-brand text-black" href="{% url 'items_list' %}">Feed</a>
+          <a class="navbar-brand text-black" href="{% url 'profile' %}">Account</a>
         </div>
         <div class="ms-auto d-flex align-items-center gap-3">
         <form action="{% url 'switch_theme' %}" method="post" class="m-0">
