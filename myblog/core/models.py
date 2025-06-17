@@ -1,5 +1,7 @@
 import django.db.models
 
+import django_ckeditor_5.fields
+
 import users.models
 
 
@@ -9,7 +11,7 @@ class AbstractPostModel(django.db.models.Model):
         max_length=150,
         verbose_name="Header of the post",
     )
-    content = django.db.models.TextField(
+    content = django_ckeditor_5.fields.CKEditor5Field(
         name="content",
         max_length=10000,
         verbose_name="Content",

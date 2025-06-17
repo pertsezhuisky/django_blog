@@ -1,5 +1,7 @@
 import django.db.models
 
+import django_ckeditor_5.fields
+
 import feed.models
 
 import users.models
@@ -12,7 +14,7 @@ class Comments(django.db.models.Model):
         verbose_name="Comment Header",
         help_text="Header of a comment",
     )
-    content = django.db.models.TextField(
+    content = django_ckeditor_5.fields.CKEditor5Field(
         name="content",
         max_length=5000,
         verbose_name="Comment Content",
