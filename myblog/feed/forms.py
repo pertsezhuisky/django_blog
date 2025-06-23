@@ -12,7 +12,6 @@ class CreatePostFrom(django.forms.ModelForm):
         fields = (
             feed.models.Feed.name.field.name,
             feed.models.Feed.content.field.name,
-            feed.models.Feed.image.field.name,
         )
         widgets = {
               "text": django_ckeditor_5.widgets.CKEditor5Widget(

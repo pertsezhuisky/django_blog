@@ -11,7 +11,6 @@ class CommentForm(django.forms.ModelForm):
         fields = [
             comments.models.Comments.name.field.name,
             comments.models.Comments.content.field.name,
-            comments.models.Comments.image.field.name,
         ]
         widgets = {
               "text": django_ckeditor_5.widgets.CKEditor5Widget(

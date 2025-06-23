@@ -16,13 +16,6 @@ class Feed(core.models.AbstractPostModel):
         verbose_name="Date edited",
         auto_now_add=True,
     )
-    image = django.db.models.ImageField(
-        name="image",
-        upload_to="users_content/",
-        verbose_name="Post image",
-        null=True,
-        blank=True,
-    )
     likes = django.db.models.ManyToManyField(
         to=users.models.User,
         related_name="likes",
