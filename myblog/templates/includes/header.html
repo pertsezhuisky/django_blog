@@ -19,11 +19,11 @@
             </span>
             <form action="{% url 'logout' %}" method="post" class="m-0">
               {% csrf_token %}
-              <button type="submit" class="btn btn-outline-light btn-sm">Выйти</button>
+              <button type="submit" class="btn btn-outline-light btn-sm">Log out</button>
             </form>
           {% else %}
-            <a href="{% url 'login' %}" class="btn btn-light btn-sm">Вход</a>
-            <a href="{% url 'sign_up' %}" class="btn btn-light btn-sm">Регистрация</a>
+            <a href="{% url 'login' %}" class="btn btn-light btn-sm">Log in</a>
+            <a href="{% url 'sign_up' %}" class="btn btn-light btn-sm">Sign up</a>
           {% endif %}
         </div>
       </div>
