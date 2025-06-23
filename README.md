@@ -7,8 +7,9 @@
 
 2. Создайте и активируйте виртуальную среду (venv):
 ```
-    python3 -m venv venv
-    source venv/bin/activate
+    cd django_blog
+    python3 -m venv .venv
+    source .venv/bin/activate
 ```
 
 3. Установите зависимости:
@@ -34,7 +35,16 @@
     cd myblog
 ```
 
-6. Запустите проект:
+6. Создайте файлы миграций:
+```
+    python manage.py makemigrations feed
+    python manage.py makemigrations comments
+    python manage.py makemigrations users
+    python manage.py makemigrations
+    python manage.py migrate
+```
+
+7. Запустите проект:
 ```
     python3 manage.py runserver
 ```
