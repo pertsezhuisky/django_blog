@@ -10,6 +10,5 @@ class FeedChangeFields(django.contrib.admin.ModelAdmin):
         feed.models.Feed.content.field.name,
         feed.models.Feed.date_published.field.name,
         feed.models.Feed.date_edited.field.name,
-        feed.models.Feed.image.field.name,
         feed.models.Feed.user.field.name,
     )
