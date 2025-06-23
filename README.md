@@ -13,8 +13,14 @@
 
 3. Установите зависимости:
 
+Для prod'a:
 ```
-    pip install -r requirements/requirements.txt
+    pip install -r requirements/prod/requirements.txt
+```
+
+Для dev'a:
+```
+    pip install -r requirements/dev/requirements.txt
 ```
 
 4. Созадайте файл .env:
